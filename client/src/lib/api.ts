@@ -1,7 +1,11 @@
 // Handling authentication and token management
 import axios, { AxiosHeaders } from 'axios';
 
-export const API_BASE_URL = '/api';
+// export const API_BASE_URL = '/api';
+
+export const API_BASE_URL = import.meta.env.VITE_BACKEND_URL
+  ? `${import.meta.env.VITE_BACKEND_URL}/api`
+  : '/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

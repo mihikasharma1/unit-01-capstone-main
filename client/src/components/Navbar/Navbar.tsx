@@ -1,34 +1,55 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { clearToken, getToken } from '../../lib/api';
+import { useState } from 'react';
 import './Navbar.css';
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
   const isLoggedIn = Boolean(getToken());
+
+  if (!isLoggedIn) return null;
 
   const handleLogout = () => {
     clearToken();
-    navigate('/login');
+    setMenuOpen(false);
+    navigate('/');
   };
 
   return (
     <header className="navbar">
       <div className="navbar-brand">
-        <Link to="/">Spoonful</Link>
+        <Link to="/account">Spoonful</Link>
       </div>
 
-      <nav className="navbar-links" aria-label="Main navigation">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/recipes">Browse</NavLink>
-        {isLoggedIn ? <NavLink to="/dashboard">Dashboard</NavLink> : null}
-        {!isLoggedIn ? <NavLink to="/login">Login</NavLink> : null}
-      </nav>
-
-      {isLoggedIn ? (
-        <button type="button" className="nav-logout" onClick={handleLogout}>
-          Logout
+      <div className="profile-menu">
+        <button
+          type="button"
+          className="account-button"
+          aria-label="Open account menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true" />
         </button>
-      ) : null}
+
+        {menuOpen ? (
+          <div className="profile-dropdown" role="menu">
+            <Link
+              to="/recipes"
+              role="menuitem"
+              className={location.pathname.startsWith('/recipes') ? 'active' : ''}
+              onClick={() => setMenuOpen(false)}
+            >
+              Browse Recipes
+            </Link>
+            <button type="button" role="menuitem" onClick={handleLogout}>
+              Log out
+            </button>
+          </div>
+        ) : null}
+      </div>
     </header>
   );
 }

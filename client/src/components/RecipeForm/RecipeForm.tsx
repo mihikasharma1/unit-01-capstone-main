@@ -157,80 +157,116 @@ export default function RecipeForm({
         placeholder="Write a short recipe description"
       />
 
-      <div className="row-section">
-        <div className="section-header">
-          <label className="field-label">Ingredients</label>
-          <button type="button" className="small-button" onClick={addIngredient}>
-            Add ingredient
+      
+<div className="row-section">
+  <div className="section-header">
+    <label className="field-label">Ingredients</label>
+  </div>
+
+  <div className="nested-list">
+    {ingredients.map((ingredient, index) => (
+      <div key={ingredient.id} className="nested-row ingredient-row">
+        <input
+          className="text-input small"
+          type="text"
+          value={ingredient.name}
+          onChange={(event) => {
+            const updated = [...ingredients];
+            updated[index].name = event.target.value;
+            setIngredients(updated);
+          }}
+          placeholder="Ingredient name"
+        />
+
+        <input
+          className="text-input small"
+          type="text"
+          value={ingredient.quantity}
+          onChange={(event) => {
+            const updated = [...ingredients];
+            updated[index].quantity = event.target.value;
+            setIngredients(updated);
+          }}
+          placeholder="Quantity"
+        />
+
+        <button
+          type="button"
+          className="remove-button"
+          onClick={() => removeIngredient(ingredient.id)}
+          disabled={ingredients.length === 1}
+          aria-label={`Remove ingredient ${index + 1}`}
+          title="Remove ingredient"
+        >
+          −
+        </button>
+      </div>
+    ))}
+  </div>
+
+  <div className="list-controls">
+    <button
+      type="button"
+      className="add-row-button"
+      onClick={addIngredient}
+      aria-label="Add ingredient"
+      title="Add ingredient"
+    >
+      +
+    </button>
+  </div>
+</div>
+
+<div className="row-section">
+  <div className="section-header">
+    <label className="field-label">Instructions</label>
+  </div>
+
+  <div className="nested-list">
+    {instructions.map((instruction, index) => (
+      <div key={instruction.id} className="nested-row vertical instruction-row">
+        <div className="instruction-header">
+          <div className="instruction-step">Step {index + 1}</div>
+
+          <button
+            type="button"
+            className="remove-button"
+            onClick={() => removeInstruction(instruction.id)}
+            disabled={instructions.length === 1}
+            aria-label={`Remove step ${index + 1}`}
+            title="Remove step"
+          >
+            −
           </button>
         </div>
 
-        {ingredients.map((ingredient, index) => (
-          <div key={ingredient.id} className="nested-row">
-            <input
-              className="text-input small"
-              type="text"
-              value={ingredient.name}
-              onChange={(event) => {
-                const updated = [...ingredients];
-                updated[index].name = event.target.value;
-                setIngredients(updated);
-              }}
-              placeholder="Ingredient name"
-            />
-            <input
-              className="text-input small"
-              type="text"
-              value={ingredient.quantity}
-              onChange={(event) => {
-                const updated = [...ingredients];
-                updated[index].quantity = event.target.value;
-                setIngredients(updated);
-              }}
-              placeholder="Quantity"
-            />
-            <button
-              type="button"
-              className="remove-button"
-              onClick={() => removeIngredient(ingredient.id)}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
+        <textarea
+          className="text-area"
+          value={instruction.description}
+          onChange={(event) => {
+            const updated = [...instructions];
+            updated[index].description = event.target.value;
+            setInstructions(updated);
+          }}
+          placeholder="Describe this step"
+        />
       </div>
+    ))}
+  </div>
 
-      <div className="row-section">
-        <div className="section-header">
-          <label className="field-label">Instructions</label>
-          <button type="button" className="small-button" onClick={addInstruction}>
-            Add step
-          </button>
-        </div>
+  <div className="list-controls">
+    <button
+      type="button"
+      className="add-row-button"
+      onClick={addInstruction}
+      aria-label="Add instruction step"
+      title="Add instruction step"
+    >
+      +
+    </button>
+  </div>
+</div>
 
-        {instructions.map((instruction, index) => (
-          <div key={instruction.id} className="nested-row vertical">
-            <div className="instruction-step">Step {index + 1}</div>
-            <textarea
-              className="text-area"
-              value={instruction.description}
-              onChange={(event) => {
-                const updated = [...instructions];
-                updated[index].description = event.target.value;
-                setInstructions(updated);
-              }}
-              placeholder="Describe this step"
-            />
-            <button
-              type="button"
-              className="remove-button"
-              onClick={() => removeInstruction(instruction.id)}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-      </div>
 
       <label className="field-label" htmlFor="tags">
         Tags

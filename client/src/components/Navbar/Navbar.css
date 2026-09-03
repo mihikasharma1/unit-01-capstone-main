@@ -1,17 +1,17 @@
 .navbar {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto 2rem;
+  height: 66px;
+  margin: 0;
   padding: 1rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   border-bottom: 1px solid #d9d9d9;
+  background: #fff7e7;
 }
 
-.navbar-brand a,
-.navbar-links a {
+.navbar-brand a {
   text-decoration: none;
   color: #1b1b1b;
 }
@@ -21,24 +21,73 @@
   font-weight: 800;
 }
 
-.navbar-links {
-  display: flex;
-  gap: 1.25rem;
-  align-items: center;
+.profile-menu {
+  position: relative;
 }
 
-.navbar-links a {
-  font-weight: 600;
-}
-
-.navbar-links a.active {
-  color: #4d8d2f;
-}
-
-.nav-logout {
-  border: none;
-  background: #f1f1f1;
-  padding: 0.7rem 1rem;
-  border-radius: 999px;
+.account-button {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 2px solid #242424;
+  border-radius: 50%;
+  background: transparent;
   cursor: pointer;
+}
+
+.account-button span,
+.account-button span::after {
+  display: block;
+  border-radius: 50%;
+  background: #242424;
+  content: '';
+}
+
+.account-button span {
+  width: 8px;
+  height: 8px;
+  margin-top: -8px;
+}
+
+.account-button span::after {
+  width: 18px;
+  height: 9px;
+  margin: 12px 0 0 -5px;
+  border-radius: 10px 10px 5px 5px;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  display: flex;
+  min-width: 170px;
+  flex-direction: column;
+  padding: 0.4rem;
+  border: 1px solid #d9d0b0;
+  border-radius: 8px;
+  background: #fffdf8;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 14%);
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+  padding: 0.7rem 0.8rem;
+  border: 0;
+  background: transparent;
+  color: #242424;
+  font-size: 0.9rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover,
+.profile-dropdown a.active {
+  border-radius: 5px;
+  background: #e8f3dc;
+  color: #39751c;
 }

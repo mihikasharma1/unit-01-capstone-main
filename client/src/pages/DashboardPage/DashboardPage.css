@@ -1,56 +1,135 @@
+
 .dashboard-page {
+  font-family: var(--font-family-base);
+  background-color: var(--color-page-bg);
+  min-height: 100vh;
+  padding: 40px 32px 60px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  align-items: center;
 }
 
 .dashboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 32px;
 }
 
-.dashboard-header h1 {
+.dashboard-page .dashboard-intro {
+  font-size: var(--text-body-size) !important;
+  font-weight: var(--text-weight-body) !important;
+  color: var(--color-gray-500) !important;
+  margin: 0 0 8px;
+}
+
+.dashboard-page .dashboard-header h1 {
+  font-size: var(--text-h1-size) !important;
+  font-weight: var(--text-weight-heading) !important;
+  color: var(--color-gray-600) !important;
+  line-height: 1.2;
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.dashboard-error {
+  width: 100%;
+  max-width: 1100px;
+  color: var(--color-red-300);
+  background-color: var(--color-red-100);
+  border: 1px solid var(--color-red-200);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: var(--text-body-size);
+  margin-bottom: 24px;
 }
 
 .dashboard-grid {
+  width: 100%;
+  max-width: 1100px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
-  justify-content: start;
-  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 24px;
+  margin-bottom: 40px;
 }
 
-.dashboard-card-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+.dashboard-empty-state {
+  color: var(--color-gray-400);
+  font-size: var(--text-body-size);
+  margin-bottom: 32px;
 }
 
 .dashboard-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
 }
 
-.mini-button {
-  border: none;
-  border-radius: 10px;
-  padding: 0.7rem 1rem;
-  font-weight: 700;
+.dashboard-page .dashboard-actions .primary-action,
+.dashboard-page .dashboard-actions .secondary-action {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: var(--radius-md) !important;
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading) !important;
+  text-decoration: none !important;
+  text-align: center;
   cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.mini-button.danger {
-  background: #f5d4d4;
-  color: #a02a2a;
+/* Primary button — solid green fill, per button spec col 1 */
+.dashboard-page .dashboard-actions .primary-action {
+  background-color: var(--color-green-400) !important;
+  color: var(--color-white) !important;
+  border: 2px solid var(--color-green-400) !important;
 }
 
-.mini-button.success {
-  background: #dcefcf;
-  color: #2f6e26;
+.dashboard-page .dashboard-actions .primary-action:hover {
+  background-color: var(--color-green-300) !important;
+  border-color: var(--color-green-300) !important;
+}
+
+.dashboard-page .dashboard-actions .primary-action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-white), 0 0 0 5px var(--color-green-400);
+}
+
+.dashboard-page .dashboard-actions .primary-action:active {
+  background-color: var(--color-green-400) !important;
+}
+
+/* Secondary button — cream fill with green outline, per button spec col 2 */
+.dashboard-page .dashboard-actions .secondary-action {
+  background-color: var(--color-yellow-100) !important;
+  color: var(--color-green-400) !important;
+  border: 2px solid var(--color-green-400) !important;
+}
+
+.dashboard-page .dashboard-actions .secondary-action:hover {
+  background-color: var(--color-yellow-200) !important;
+}
+
+.dashboard-page .dashboard-actions .secondary-action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-white), 0 0 0 5px var(--color-green-400);
+}
+
+@media (max-width: 640px) {
+  .dashboard-page {
+    padding: 24px 16px 40px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-actions {
+    max-width: 100%;
+  }
 }

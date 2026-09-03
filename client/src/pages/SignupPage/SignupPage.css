@@ -1,16 +1,172 @@
+
 .auth-page {
-  display: grid;
-  place-items: center;
-  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-page-bg);
+  min-height: 100vh;
+  padding: 48px 24px 80px;
+  font-family: var(--font-family-base);
 }
 
-.auth-switch {
-  margin-top: 1rem;
+.signup-content {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--color-green-400);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signup-content h1 {
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
   text-align: center;
+  margin: 0 0 20px;
 }
 
-.auth-switch a {
-  color: #417f2c;
-  font-weight: 700;
-  text-decoration: none;
+.signup-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-content form label {
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.signup-content form label:first-of-type {
+  margin-top: 0;
+}
+
+.signup-content form input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  color: var(--color-gray-600);
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.signup-content form input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.signup-content form input:focus {
+  outline: none;
+  border-color: var(--color-green-400);
+  background-color: var(--color-yellow-100);
+  box-shadow: 0 0 0 3px rgba(87, 133, 47, 0.15);
+}
+
+/* Error state per field, matching the Figma "Error" variant.
+   Add className={error ? 'input-error' : ''} to the username/password
+   inputs once you're validating per field, and render a matching
+   <p className="field-hint"> under each for the inline message. */
+.signup-content form input.input-error {
+  border-color: var(--color-red-300);
+  background-color: var(--color-red-100);
+}
+
+.signup-content form label.label-error {
+  color: var(--color-red-300);
+}
+
+.field-hint {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-red-300);
+  margin: 4px 0 0;
+}
+
+.signup-error {
+  color: var(--color-red-300);
+  background-color: var(--color-red-100);
+  border: 1px solid var(--color-red-200);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: var(--text-body-sm-size);
+  margin: 14px 0 0;
+}
+
+.signup-primary-button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-green-400);
+  background-color: var(--color-green-400);
+  color: var(--color-white);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.signup-primary-button:hover:not(:disabled) {
+  background-color: var(--color-green-300);
+  border-color: var(--color-green-300);
+}
+
+.signup-primary-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-white), 0 0 0 5px var(--color-green-400);
+}
+
+.signup-primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.signup-cancel-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-green-400);
+  background-color: var(--color-yellow-100);
+  color: var(--color-green-400);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.signup-cancel-button:hover {
+  background-color: var(--color-yellow-200);
+}
+
+@media (max-width: 640px) {
+  .auth-page {
+    padding: 32px 16px 60px;
+  }
 }

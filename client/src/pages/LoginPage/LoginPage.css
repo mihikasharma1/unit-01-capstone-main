@@ -1,16 +1,198 @@
+
 .auth-page {
-  display: grid;
-  place-items: center;
-  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-page-bg);
+  min-height: 100vh;
+  padding: 48px 24px 80px;
+  font-family: var(--font-family-base);
 }
 
-.auth-switch {
-  margin-top: 1rem;
+.login-content {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  font-size: 18px;
+  color: var(--color-green-400);
+}
+
+.login-content h1 {
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
   text-align: center;
+  margin: 0 0 4px;
 }
 
-.auth-switch a {
-  color: #417f2c;
-  font-weight: 700;
+.login-subtitle {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-gray-400);
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.login-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-content form label {
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.login-content form label:first-of-type {
+  margin-top: 0;
+}
+
+.login-content form input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  color: var(--color-gray-600);
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-content form input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.login-content form input:focus {
+  outline: none;
+  border-color: var(--color-green-400);
+  background-color: var(--color-yellow-100);
+  box-shadow: 0 0 0 3px rgba(87, 133, 47, 0.15);
+}
+
+/* Optional error state — add className={error ? 'input-error' : ''} to an
+   input to flag it red once you're doing field-level validation. */
+.login-content form input.input-error {
+  border-color: var(--color-red-300);
+  background-color: var(--color-red-100);
+}
+
+.password-label-row {
+  display: flex;
+}
+
+.forgot-password {
+  align-self: flex-end;
+  margin-top: 6px;
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-green-400);
+  cursor: pointer;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.login-error {
+  color: var(--color-red-300);
+  background-color: var(--color-red-100);
+  border: 1px solid var(--color-red-200);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: var(--text-body-sm-size);
+  margin: 14px 0 0;
+}
+
+/* The "Login" submit button — plain <button>, first-level child of the form */
+.login-content form > button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-green-400);
+  background-color: var(--color-green-400);
+  color: var(--color-white);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.login-content form > button:hover:not(:disabled) {
+  background-color: var(--color-green-300);
+  border-color: var(--color-green-300);
+}
+
+.login-content form > button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-white), 0 0 0 5px var(--color-green-400);
+}
+
+.login-content form > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.create-account-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-green-400);
+  background-color: var(--color-yellow-100);
+  color: var(--color-green-400);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  text-align: center;
   text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.create-account-button:hover {
+  background-color: var(--color-yellow-200);
+}
+
+.explore-link {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-green-400);
+  text-decoration: underline;
+}
+
+.explore-link:hover {
+  color: var(--color-green-300);
+}
+
+@media (max-width: 640px) {
+  .auth-page {
+    padding: 32px 16px 60px;
+  }
 }

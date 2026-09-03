@@ -1,4 +1,22 @@
+
 .new-recipe-page {
   display: flex;
   justify-content: center;
+  background-color: var(--color-page-bg);
+  min-height: 100vh;
+  padding: 48px 24px 80px;
+  font-family: var(--font-family-base);
+}
+
+.new-recipe-page .empty-state {
+  color: var(--color-gray-400);
+  font-size: var(--text-body-size);
+  text-align: center;
+  margin-top: 80px;
+}
+
+@media (max-width: 640px) {
+  .new-recipe-page {
+    padding: 32px 16px 60px;
+  }
 }

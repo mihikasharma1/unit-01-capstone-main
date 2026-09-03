@@ -1,29 +1,119 @@
+
 .browse-page {
   display: flex;
+  justify-content: center;
+  background-color: var(--color-page-bg);
+  min-height: 100vh;
+  padding: 32px 24px 80px;
+  font-family: var(--font-family-base);
+}
+
+.browse-panel {
+  width: 100%;
+  max-width: 360px;
+}
+
+.browse-content {
+  display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 16px;
+}
+
+
+.browse-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-body-sm-size);
+  color: var(--color-gray-400);
+  margin-bottom: 4px;
+}
+
+.browse-breadcrumb a {
+  color: var(--color-green-400);
+  font-weight: var(--text-weight-heading);
+  text-decoration: none;
+}
+
+.browse-breadcrumb a:hover {
+  text-decoration: underline;
 }
 
 .browse-header {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 12px;
 }
 
 .browse-header h1 {
+  font-size: var(--text-h2-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.browse-search {
+  width: 100%;
+}
+
+.browse-empty-state {
+  color: var(--color-gray-400);
+  font-size: var(--text-body-size);
+  text-align: center;
+  margin-top: 40px;
 }
 
 .recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
-  justify-content: start;
-  align-items: start;
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.empty-state {
-  font-size: 1.1rem;
-  color: #4f4f4f;
+
+.browse-page .recipe-card {
+  max-width: 100%;
+}
+
+.browse-page .recipe-card-image {
+  height: 140px;
+}
+
+.browse-page .recipe-card-body {
+  padding: 14px 16px 16px;
+}
+
+.browse-page .recipe-card-body h2 {
+  font-size: var(--text-h3-size);
+  margin: 0 0 4px;
+}
+
+.browse-page .recipe-date {
+  margin: 0 0 8px;
+}
+
+
+.browse-page .recipe-description {
+  display: none;
+}
+
+.browse-page .recipe-tags {
+  margin-bottom: 4px;
+}
+
+/* "View Recipe" affordance — decorative only; the whole card is already
+   clickable via RecipeCard's onClick prop. */
+.browse-page .recipe-card-body::after {
+  content: 'View Recipe';
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--color-green-400);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .browse-page {
+    padding: 24px 16px 60px;
+  }
 }

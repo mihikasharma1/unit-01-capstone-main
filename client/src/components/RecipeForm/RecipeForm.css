@@ -1,84 +1,351 @@
+
 .recipe-form {
-  width: min(100%, 720px);
-  background: #fff;
-  border: 1px solid #d7d7d7;
-  border-radius: 18px;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 6px;
+  width: 100%;
+  max-width: 480px;
+  font-family: var(--font-family-base);
 }
 
 .recipe-form h2 {
-  margin: 0 0 0.5rem;
-  font-size: 2rem;
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  text-align: center;
+  margin: 0 0 10px;
 }
 
 .form-error {
-  margin: 0;
-  color: #a02a2a;
-  font-weight: 600;
+  background-color: var(--color-red-100);
+  border: 1px solid var(--color-red-200);
+  color: var(--color-red-300);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-size);
+  margin: 0 0 10px;
 }
 
-.row-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin: 0.5rem 0;
+/* Labels */
+.field-label {
+  display: block;
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  margin-top: 14px;
+  margin-bottom: 6px;
 }
 
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+.field-label:first-of-type {
+  margin-top: 0;
 }
 
-.nested-row {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr auto;
-  gap: 0.75rem;
-  align-items: center;
+/* Inputs */
+.text-input,
+.text-area {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  color: var(--color-gray-600);
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.nested-row.vertical {
-  grid-template-columns: 1fr;
+.text-input::placeholder,
+.text-area::placeholder {
+  color: var(--color-gray-400);
 }
 
-.instruction-step {
-  font-weight: 700;
-  color: #3a3a3a;
+.text-input:focus,
+.text-area:focus {
+  outline: none;
+  border-color: var(--color-green-400);
+  background-color: var(--color-yellow-100);
+  box-shadow: 0 0 0 3px rgba(87, 133, 47, 0.15);
 }
 
 .text-area {
-  width: 100%;
-  min-height: 110px;
-  border: 1px solid #bdbdbd;
-  border-radius: 12px;
-  padding: 0.8rem 0.9rem;
-  font-size: 1rem;
+  min-height: 90px;
   resize: vertical;
+  font-family: inherit;
 }
 
-.text-input.small {
-  min-height: 48px;
+/* Ingredient / instruction row sections */
+.row-section {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.small-button,
-.remove-button {
-  border: none;
-  border-radius: 10px;
-  padding: 0.6rem 0.8rem;
+.section-header {
+  margin-bottom: 2px;
+}
+
+.section-header .field-label {
+  margin: 0;
+}
+
+.nested-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nested-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nested-row.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ingredient-row .text-input.small {
+  flex: 1;
+  min-width: 0;
+}
+
+.ingredient-row .text-input.small:nth-of-type(2) {
+  flex: 0 0 110px;
+}
+
+.instruction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.instruction-step {
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+}
+
+.list-controls {
+  display: flex;
+}
+
+/* Add / remove row controls */
+.remove-button,
+.add-row-button {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
   font-weight: 700;
+  line-height: 1;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-}
-
-.small-button {
-  background: #e8f3dc;
-  color: #2e6e2a;
+  transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
 }
 
 .remove-button {
-  background: #f3d8d8;
-  color: #9f2a2a;
+  background-color: var(--color-red-100);
+  border: 1.5px solid var(--color-red-200);
+  color: var(--color-red-300);
+}
+
+.remove-button:hover:not(:disabled) {
+  background-color: var(--color-red-200);
+  color: var(--color-white);
+}
+
+.remove-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.add-row-button {
+  align-self: flex-start;
+  background-color: var(--color-green-100);
+  border: 1.5px solid var(--color-green-300);
+  color: var(--color-green-400);
+}
+
+.add-row-button:hover {
+  background-color: var(--color-green-200);
+}
+
+/* Image upload widget */
+.image-upload {
+  position: relative;
+}
+
+.image-upload-input {
+  display: none;
+}
+
+.image-upload-empty {
+  width: 100%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 2px dashed var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  color: var(--color-gray-400);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.image-upload-empty:hover {
+  border-color: var(--color-green-400);
+  color: var(--color-green-400);
+}
+
+.image-upload.has-error .image-upload-empty {
+  border-color: var(--color-red-300);
+  color: var(--color-red-300);
+  background-image:
+    linear-gradient(45deg, var(--color-gray-100) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-gray-100) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-gray-100) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-gray-100) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+.image-preview {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.image-preview img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.image-preview-actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.image-icon-button {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.image-icon-button.delete {
+  color: var(--color-red-300);
+}
+
+.image-icon-button.delete:hover {
+  background-color: var(--color-red-100);
+}
+
+.image-icon-button.edit {
+  color: var(--color-green-400);
+}
+
+.image-icon-button.edit:hover {
+  background-color: var(--color-green-100);
+}
+
+.field-error {
+  color: var(--color-red-300);
+  font-size: var(--text-body-sm-size);
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+
+/* Submit / cancel actions */
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-green-400);
+  background-color: var(--color-green-400);
+  color: var(--color-white);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.primary-button:hover:not(:disabled) {
+  background-color: var(--color-green-300);
+  border-color: var(--color-green-300);
+}
+
+.primary-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-white), 0 0 0 5px var(--color-green-400);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-green-400);
+  background-color: var(--color-yellow-100);
+  color: var(--color-green-400);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background-color: var(--color-yellow-200);
+}
+
+.secondary-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-white), 0 0 0 5px var(--color-green-400);
+}
+
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .recipe-form {
+    max-width: 100%;
+  }
 }

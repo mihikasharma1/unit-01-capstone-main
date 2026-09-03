@@ -1,3 +1,4 @@
+// Handling authentication and token management
 import axios, { AxiosHeaders } from 'axios';
 
 export const API_BASE_URL = '/api';
@@ -9,6 +10,8 @@ export const api = axios.create({
   },
 });
 
+
+// this is run before any request to attach the authorization header if a token exists
 api.interceptors.request.use((config) => {
   const token = getToken();
 
@@ -26,7 +29,7 @@ export function getToken() {
 
 export function getUserId() {
   const token = getToken();
-  if (!token) return null;
+  if (!token) return null; // no logged in user
   try {
     const payload = JSON.parse(atob(token.split('.')[1])) as { user?: { _id?: string } };
     return payload.user?._id ?? null;

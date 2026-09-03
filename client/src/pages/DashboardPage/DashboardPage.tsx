@@ -1,27 +1,34 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
+import Toast from '../../components/Toast/Toast';
+import { api, getUserId } from '../../lib/api';
+import { formatDate, getApiError, type Recipe } from '../../lib/recipes';
 import './DashboardPage.css';
 
-const mockRecipes = [
-  {
-    _id: '1',
-    title: 'Chickpea Stew',
-    image:
-      'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80',
-    tags: ['Vegan', 'Easy'],
-    createdAt: '2/13/25',
-  },
-  {
-    _id: '2',
-    title: 'Garden Salad',
-    image:
-      'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=1200&q=80',
-    tags: ['Vegetarian'],
-    createdAt: '2/16/25',
-  },
-];
-
 export default function DashboardPage() {
+  const navigate = useNavigate();
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [error, setError] = useState('');
+  const [toast, setToast] = useState('');
+
+  useEffect(() => {
+    api.get<Recipe[]>('/recipes')
+      .then((response) => setRecipes(response.data.filter((recipe) => recipe.ownerId === getUserId())))
+      .catch((requestError) => setError(getApiError(requestError, 'Unable to load your recipes.')));
+  }, []);
+
+  const deleteRecipe = async (id: string) => {
+    if (!window.confirm('Delete this recipe? This action cannot be undone.')) return;
+    try {
+      await api.delete(`/recipes/${id}`);
+      setRecipes((current) => current.filter((recipe) => recipe._id !== id));
+      setToast('Recipe deleted successfully.');
+    } catch (requestError) {
+      setError(getApiError(requestError, 'You do not have permission to delete this recipe.'));
+    }
+  };
+
   return (
     <main className="page-shell dashboard-page">
       <div className="dashboard-header">
@@ -31,27 +38,22 @@ export default function DashboardPage() {
         </Link>
       </div>
 
+      {error ? <p className="empty-state">{error}</p> : null}
       <section className="dashboard-grid">
-        {mockRecipes.map((recipe) => (
-          <div key={recipe._id} className="dashboard-card-wrap">
-            <RecipeCard
-              title={recipe.title}
-              image={recipe.image}
-              tags={recipe.tags}
-              createdAt={recipe.createdAt}
-            />
-
-            <div className="dashboard-actions">
-              <button type="button" className="mini-button danger">
-                Delete
-              </button>
-              <button type="button" className="mini-button success">
-                Edit
-              </button>
-            </div>
-          </div>
+        {recipes.map((recipe) => (
+          <RecipeCard
+            key={recipe._id}
+            title={recipe.title}
+            image={recipe.image}
+            tags={recipe.tags}
+            createdAt={formatDate(recipe.createdAt)}
+            onDelete={() => deleteRecipe(recipe._id)}
+            onEdit={() => navigate(`/dashboard/${recipe._id}/edit`)}
+          />
         ))}
       </section>
+      {!error && recipes.length === 0 ? <p className="empty-state">You have not created any recipes yet.</p> : null}
+      {toast ? <Toast message={toast} onClose={() => setToast('')} /> : null}
     </main>
   );
 }

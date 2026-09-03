@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import type { RecipeInput } from '../../lib/recipes';
 import './RecipeForm.css';
 
 type IngredientRow = {
@@ -24,21 +25,19 @@ type RecipeFormProps = {
     ingredients?: { name: string; quantity: string }[];
     instructions?: { step: number; description: string }[];
   };
-  onSubmit: (values: {
-    title: string;
-    image: string;
-    description: string;
-    tags: string[];
-    ingredients: { name: string; quantity: string }[];
-    instructions: { step: number; description: string }[];
-  }) => void;
+  onSubmit: (values: RecipeInput) => void | Promise<void>;
+  error?: string;
+  submitting?: boolean;
 };
 
 export default function RecipeForm({
   mode = 'create',
   initialValues = {},
   onSubmit,
+  error = '',
+  submitting = false,
 }: RecipeFormProps) {
+  const [validationError, setValidationError] = useState('');
   const [title, setTitle] = useState(initialValues.title ?? '');
   const [image, setImage] = useState(initialValues.image ?? '');
   const [description, setDescription] = useState(initialValues.description ?? '');
@@ -79,7 +78,7 @@ export default function RecipeForm({
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    onSubmit({
+    const values: RecipeInput = {
       title,
       image,
       description,
@@ -99,12 +98,29 @@ export default function RecipeForm({
           step: index + 1,
           description: instruction.description.trim(),
         })),
-    });
+    };
+
+    if (!values.title || !values.image || !values.description) {
+      setValidationError('Title, image URL, and description are required.');
+      return;
+    }
+    if (values.ingredients.length === 0 || values.ingredients.some((item) => !item.name || !item.quantity)) {
+      setValidationError('Add a name and quantity for at least one ingredient.');
+      return;
+    }
+    if (values.instructions.length === 0) {
+      setValidationError('Add at least one instruction step.');
+      return;
+    }
+
+    setValidationError('');
+    onSubmit(values);
   };
 
   return (
     <form className="recipe-form" onSubmit={handleSubmit}>
       <h2>{mode === 'create' ? 'Create recipe' : 'Edit recipe'}</h2>
+      {validationError || error ? <p className="form-error">{validationError || error}</p> : null}
 
       <label className="field-label" htmlFor="title">
         Title
@@ -228,8 +244,8 @@ export default function RecipeForm({
         placeholder="vegan, healthy, quick"
       />
 
-      <button className="primary-button" type="submit">
-        {mode === 'create' ? 'Create recipe' : 'Save changes'}
+      <button className="primary-button" type="submit" disabled={submitting}>
+        {submitting ? 'Saving...' : mode === 'create' ? 'Create recipe' : 'Save changes'}
       </button>
     </form>
   );

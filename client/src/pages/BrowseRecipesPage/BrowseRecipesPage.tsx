@@ -1,50 +1,40 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
+import { api } from '../../lib/api';
+import { formatDate, getApiError, type Recipe } from '../../lib/recipes';
 import './BrowseRecipesPage.css';
-
-const mockRecipes = [
-  {
-    _id: '1',
-    title: 'Chickpea Stew',
-    description: 'A warm, hearty bowl for a cozy dinner.',
-    image:
-      'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80',
-    tags: ['Vegan', 'Gluten-free', 'Easy'],
-    createdAt: '2/13/25',
-  },
-  {
-    _id: '2',
-    title: 'Garden Salad',
-    description: 'Fresh greens with a bright lemon dressing.',
-    image:
-      'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=1200&q=80',
-    tags: ['Vegetarian', 'Healthy'],
-    createdAt: '2/16/25',
-  },
-];
 
 export default function BrowseRecipesPage() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    api.get<Recipe[]>('/recipes')
+      .then((response) => setRecipes(response.data))
+      .catch((requestError) => setError(getApiError(requestError, 'Unable to load recipes.')));
+  }, []);
 
   const filteredRecipes = useMemo(() => {
     const input = query.trim().toLowerCase();
-    if (!input) return mockRecipes;
+    if (!input) return recipes;
 
-    return mockRecipes.filter((recipe) => {
+    return recipes.filter((recipe) => {
       const haystack = [
         recipe.title,
         recipe.description,
         ...recipe.tags,
+        ...recipe.ingredients.map((ingredient) => `${ingredient.name} ${ingredient.quantity}`),
       ]
         .join(' ')
         .toLowerCase();
 
       return haystack.includes(input);
     });
-  }, [query]);
+  }, [query, recipes]);
 
   return (
     <main className="page-shell browse-page">
@@ -53,7 +43,7 @@ export default function BrowseRecipesPage() {
         <SearchBar value={query} onChange={setQuery} />
       </div>
 
-      {filteredRecipes.length === 0 ? (
+      {error ? <p className="empty-state">{error}</p> : filteredRecipes.length === 0 ? (
         <p className="empty-state">No matching recipes found.</p>
       ) : (
         <section className="recipe-grid">
@@ -64,7 +54,7 @@ export default function BrowseRecipesPage() {
               image={recipe.image}
               description={recipe.description}
               tags={recipe.tags}
-              createdAt={recipe.createdAt}
+              createdAt={formatDate(recipe.createdAt)}
               onClick={() => navigate(`/recipes/${recipe._id}`)}
             />
           ))}

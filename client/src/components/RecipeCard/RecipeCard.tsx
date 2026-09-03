@@ -7,6 +7,8 @@ type RecipeCardProps = {
   tags?: string[];
   createdAt?: string;
   onClick?: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 export default function RecipeCard({
@@ -16,6 +18,8 @@ export default function RecipeCard({
   tags = [],
   createdAt,
   onClick,
+  onEdit,
+  onDelete,
 }: RecipeCardProps) {
   return (
     <article className="recipe-card" onClick={onClick}>
@@ -36,6 +40,35 @@ export default function RecipeCard({
           </div>
         ) : null}
       </div>
+
+      {onEdit || onDelete ? (
+        <div className="recipe-card-actions">
+          {onDelete ? (
+            <button
+              type="button"
+              className="recipe-action delete-action"
+              onClick={(event) => {
+                event.stopPropagation();
+                onDelete();
+              }}
+            >
+              Delete
+            </button>
+          ) : null}
+          {onEdit ? (
+            <button
+              type="button"
+              className="recipe-action edit-action"
+              onClick={(event) => {
+                event.stopPropagation();
+                onEdit();
+              }}
+            >
+              Edit
+            </button>
+          ) : null}
+        </div>
+      ) : null}
     </article>
   );
 }

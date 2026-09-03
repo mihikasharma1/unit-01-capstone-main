@@ -1,19 +1,70 @@
+
+
 .app-shell {
   min-height: 100vh;
-  background: #f5f4f2;
-  color: #1b1b1b;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-neutral-200);
+  color: var(--color-neutral-600);
+}
+
+.app-shell > header,
+.app-shell > footer {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.app-shell > main {
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* Reusable centered page wrapper */
+.content-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  box-sizing: border-box;
+}
+
+/* Prevent long text or controls from forcing horizontal scrolling */
+.app-shell,
+.app-shell * {
+  min-width: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
 }
 
-img {
-  max-width: 100%;
+button {
+  cursor: pointer;
 }
 
-#root {
-  min-height: 100vh;
+a {
+  color: var(--color-green-400);
+}
+
+@media (min-width: 768px) {
+  .content-container {
+    padding-inline: 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content-container {
+    padding-inline: 32px;
+  }
 }

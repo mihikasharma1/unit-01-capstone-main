@@ -24,6 +24,17 @@ export function getToken() {
   return localStorage.getItem('spoonful_token');
 }
 
+export function getUserId() {
+  const token = getToken();
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1])) as { user?: { _id?: string } };
+    return payload.user?._id ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function setToken(token: string) {
   localStorage.setItem('spoonful_token', token);
 }

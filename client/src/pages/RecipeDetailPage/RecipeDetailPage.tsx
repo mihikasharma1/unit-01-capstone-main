@@ -1,24 +1,24 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { api } from '../../lib/api';
+import { getApiError, type Recipe } from '../../lib/recipes';
 import './RecipeDetailPage.css';
 
-const recipe = {
-  title: 'Chickpea Stew',
-  image:
-    'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80',
-  description: 'A warm, spicy chickpea stew with rich flavor and bright, comforting texture.',
-  tags: ['Vegan', 'Gluten-free', 'Easy'],
-  ingredients: [
-    { name: 'Chickpeas', quantity: '2 cans' },
-    { name: 'Tomatoes', quantity: '3 cups' },
-    { name: 'Garlic', quantity: '2 cloves' },
-  ],
-  instructions: [
-    { step: 1, description: 'Sauté garlic in olive oil until fragrant.' },
-    { step: 2, description: 'Add tomatoes and simmer with spices.' },
-    { step: 3, description: 'Fold in chickpeas and cook until thickened.' },
-  ],
-};
-
 export default function RecipeDetailPage() {
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!id) return;
+    api.get<Recipe>(`/recipes/${id}`)
+      .then((response) => setRecipe(response.data))
+      .catch((requestError) => setError(getApiError(requestError, 'Unable to load this recipe.')));
+  }, [id]);
+
+  if (error) return <main className="page-shell"><p className="empty-state">{error}</p></main>;
+  if (!recipe) return <main className="page-shell"><p className="empty-state">Loading recipe...</p></main>;
+
   return (
     <main className="page-shell recipe-detail-page">
       <article className="recipe-detail-card">

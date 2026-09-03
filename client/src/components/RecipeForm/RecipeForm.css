@@ -1,0 +1,78 @@
+.recipe-form {
+  width: min(100%, 720px);
+  background: #fff;
+  border: 1px solid #d7d7d7;
+  border-radius: 18px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.recipe-form h2 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+}
+
+.row-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nested-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.nested-row.vertical {
+  grid-template-columns: 1fr;
+}
+
+.instruction-step {
+  font-weight: 700;
+  color: #3a3a3a;
+}
+
+.text-area {
+  width: 100%;
+  min-height: 110px;
+  border: 1px solid #bdbdbd;
+  border-radius: 12px;
+  padding: 0.8rem 0.9rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.text-input.small {
+  min-height: 48px;
+}
+
+.small-button,
+.remove-button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.small-button {
+  background: #e8f3dc;
+  color: #2e6e2a;
+}
+
+.remove-button {
+  background: #f3d8d8;
+  color: #9f2a2a;
+}

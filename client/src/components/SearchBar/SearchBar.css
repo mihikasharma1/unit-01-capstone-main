@@ -1,0 +1,12 @@
+.searchbar-wrap {
+  width: 100%;
+}
+
+.searchbar {
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  background: #fff;
+}

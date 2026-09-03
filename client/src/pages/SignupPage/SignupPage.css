@@ -1,0 +1,16 @@
+.auth-page {
+  display: grid;
+  place-items: center;
+  min-height: 70vh;
+}
+
+.auth-switch {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.auth-switch a {
+  color: #417f2c;
+  font-weight: 700;
+  text-decoration: none;
+}

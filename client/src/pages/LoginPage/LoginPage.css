@@ -96,6 +96,16 @@
   background-color: var(--color-red-100);
 }
 
+.login-content form label.label-error {
+  color: var(--color-red-300);
+}
+
+.field-hint {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-red-300);
+  margin: 4px 0 0;
+}
+
 .password-label-row {
   display: flex;
 }

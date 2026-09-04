@@ -1,0 +1,77 @@
+/* ConfirmDialog.css
+   Requires tokens.css to be imported somewhere earlier (e.g. index.css). */
+
+.confirm-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.confirm-dialog {
+  width: 100%;
+  max-width: 360px;
+  background-color: var(--color-page-bg);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-family-base);
+  text-align: center;
+}
+
+.confirm-dialog h2 {
+  font-size: var(--text-h2-size);
+  font-weight: var(--text-weight-heading);
+  color: var(--color-gray-600);
+  margin: 0 0 12px;
+}
+
+.confirm-dialog p {
+  font-size: var(--text-body-size);
+  color: var(--color-gray-500);
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.confirm-dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.confirm-dialog-confirm,
+.confirm-dialog-cancel {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-weight-heading);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.confirm-dialog-confirm {
+  background-color: var(--color-green-400);
+  color: var(--color-white);
+  border: 2px solid var(--color-green-400);
+}
+
+.confirm-dialog-confirm:hover {
+  background-color: var(--color-green-300);
+  border-color: var(--color-green-300);
+}
+
+.confirm-dialog-cancel {
+  background-color: var(--color-yellow-100);
+  color: var(--color-green-400);
+  border: 2px solid var(--color-green-400);
+}
+
+.confirm-dialog-cancel:hover {
+  background-color: var(--color-yellow-200);
+}

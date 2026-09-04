@@ -62,16 +62,17 @@ describe('recipe CRUD components', () => {
   });
 
   it('removes a recipe from the dashboard after deletion', async () => {
-    mockedApi.get.mockResolvedValue({ data: [recipe] } as never);
-    mockedApi.delete.mockResolvedValue({ data: { message: 'Deleted Recipe' } } as never);
-    renderDashboard();
+  mockedApi.get.mockResolvedValue({ data: [recipe] } as never);
+  mockedApi.delete.mockResolvedValue({ data: { message: 'Deleted Recipe' } } as never);
+  renderDashboard();
 
-    expect(await screen.findByText('Chickpea Stew')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+  expect(await screen.findByText('Chickpea Stew')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Yes, Delete Recipe' }));
 
-    await waitFor(() => expect(screen.queryByText('Chickpea Stew')).not.toBeInTheDocument());
-    expect(mockedApi.delete).toHaveBeenCalledWith('/recipes/recipe-1');
-  });
+  await waitFor(() => expect(screen.queryByText('Chickpea Stew')).not.toBeInTheDocument());
+  expect(mockedApi.delete).toHaveBeenCalledWith('/recipes/recipe-1');
+});
 
   it('prefills and updates an existing recipe', async () => {
     mockedApi.get.mockResolvedValue({ data: recipe } as never);

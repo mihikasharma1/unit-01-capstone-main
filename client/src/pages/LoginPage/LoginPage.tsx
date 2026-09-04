@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api, setToken } from '../../lib/api';
 import './LoginPage.css';
+import Logo from '../../assets/Logo.png'
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -61,10 +62,7 @@ export default function LoginPage() {
     <main className="page-shell auth-page login-page">
       <section className="login-content">
         <div className="brand" aria-label="Spoonful">
-          <span className="brand-mark" aria-hidden="true">
-            ♜
-          </span>
-          <span>Spoonful</span>
+          <img src={Logo} alt="Spoonful" className="navbar-logo" />
         </div>
 
         <h1>Welcome Back!</h1>

@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api, setToken } from '../../lib/api';
 import './SignupPage.css';
+import Logo from '../../assets/Logo.png'
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -61,15 +62,7 @@ export default function SignupPage() {
     <main className="page-shell auth-page signup-page">
       <section className="signup-content">
         <div className="brand" aria-label="Spoonful">
-          <svg
-            className="brand-mark"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path d="M6 2v8M4 2v4.5M8 2v4.5M4 6.5c0 1.7 1 2.8 2 2.8V22" />
-            <path d="M16 2c-1.5 1.8-2.2 4-2.2 6.2 0 2.1 1 3.1 2.2 3.1V22M18 2v20" />
-          </svg>
-          <span>Spoonful</span>
+          <img src={Logo} alt="Spoonful" className="navbar-logo" />
         </div>
 
         <h1>Create an Account</h1>

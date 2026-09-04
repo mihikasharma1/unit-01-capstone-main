@@ -3,6 +3,8 @@ import { clearToken, getToken } from '../../lib/api';
 import { useState } from 'react';
 import './Navbar.css';
 
+import Logo from '../../assets/Logo.png'
+
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,7 +22,9 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-brand">
-        <Link to="/account">Spoonful</Link>
+        <Link to="/account">
+          <img src={Logo} alt="Spoonful" />
+        </Link>
       </div>
 
       <div className="profile-menu">
